@@ -1,0 +1,8 @@
+ARG_ENABLE('dbr', 'dbr support', 'no');
+
+if (PHP_DBR != 'no') {
+
+	AC_DEFINE('HAVE_DBR', 1, 'dbr support enabled');
+
+	EXTENSION('dbr', 'dbr.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
