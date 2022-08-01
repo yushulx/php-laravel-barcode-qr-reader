@@ -1,6 +1,9 @@
 ARG_ENABLE('dbr', 'dbr support', 'no');
 
 if (PHP_DBR != 'no') {
+	lib_path = "ext\\dbr";
+
+	ADD_FLAG("LDFLAGS", '/libpath:"' + lib_path + '" /DYNAMICBASE "DBRx64.lib"');
 
 	AC_DEFINE('HAVE_DBR', 1, 'dbr support enabled');
 

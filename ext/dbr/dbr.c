@@ -10,7 +10,9 @@
 
 #include "DynamsoftBarcodeReader.h"
 
-#pragma comment(lib, "DBRx64.lib")
+// #if defined(_WIN64)
+// #pragma comment(lib, "DBRx64.lib")
+// #endif
 
 /* For compatibility with older PHP versions */
 #ifndef ZEND_PARSE_PARAMETERS_NONE
