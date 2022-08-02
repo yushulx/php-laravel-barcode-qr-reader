@@ -4,9 +4,6 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 ## Download
 [Dynamsoft C++ Barcode Reader v9.2](https://www.dynamsoft.com/barcode-reader/downloads)
 
-## License Key
-App for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr).
-
 ## How to Build the Extension
 
 **Windows**
@@ -27,13 +24,15 @@ App for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license
 
     ![install PHP barcode Qr code extension in Windows](https://www.dynamsoft.com/codepool/img/2022/08/php-install-barcode-extension.png)
 
-5. Substitute the license key in `test/reader.php`.
+
+## Test the Extension
+1. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr), and substitute the license key in `test/reader.php`.
 
     ```php
     DBRInitLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
     ```
  
-6. Test the extension:
+2. Test the extension:
 
     ```bash
     cd test
