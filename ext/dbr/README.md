@@ -25,7 +25,7 @@ App for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license
     ```
 4. Copy the generated `php_dbr.dll` to the `php/ext/` folder, and copy `DynamicPdfx64.dll`, `DynamsoftBarcodeReaderx64.dll`, `DynamsoftLicenseClientx64.dll` and `vcomp110.dll` to the PHP root directory.
 
-    ![]()
+    ![install PHP barcode Qr code extension in Windows](https://www.dynamsoft.com/codepool/img/2022/08/php-install-barcode-extension.png)
 
 5. Substitute the license key in `test/reader.php`.
 
