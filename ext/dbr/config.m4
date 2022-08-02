@@ -59,35 +59,21 @@ if test "$PHP_DBR" != "no"; then
 
   dnl Remove this code block if the library supports pkg-config.
   dnl --with-dbr -> check for lib and symbol presence
-  dnl LIBNAME=DBR # you may want to change this
-  dnl LIBSYMBOL=DBR # you most likely want to change this
+  LIBNAME=DynamsoftBarcodeReader
+  LIBSYMBOL=DBR_CreateInstance
 
-  dnl If you need to check for a particular library function (e.g. a conditional
-  dnl or version-dependent feature) and you are using pkg-config:
-  dnl PHP_CHECK_LIBRARY($LIBNAME, $LIBSYMBOL,
-  dnl [
-  dnl   AC_DEFINE(HAVE_DBR_FEATURE, 1, [ ])
-  dnl ],[
-  dnl   AC_MSG_ERROR([FEATURE not supported by your dbr library.])
-  dnl ], [
-  dnl   $LIBFOO_LIBS
-  dnl ])
+  PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
+  [
+  PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, /usr/lib, DBR_SHARED_LIBADD)
+  AC_DEFINE(HAVE_DBRLIB,1,[ ])
+  ],[
+  AC_MSG_ERROR([wrong dbr lib version or lib not found])
+  ],[
+  -L$DBR_DIR/$PHP_LIBDIR -lm
+  ])
+  
+  PHP_SUBST(DBR_SHARED_LIBADD)
 
-  dnl If you need to check for a particular library function (e.g. a conditional
-  dnl or version-dependent feature) and you are not using pkg-config:
-  dnl PHP_CHECK_LIBRARY($LIBNAME, $LIBSYMBOL,
-  dnl [
-  dnl   PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $DBR_DIR/$PHP_LIBDIR, DBR_SHARED_LIBADD)
-  dnl   AC_DEFINE(HAVE_DBR_FEATURE, 1, [ ])
-  dnl ],[
-  dnl   AC_MSG_ERROR([FEATURE not supported by your dbr library.])
-  dnl ],[
-  dnl   -L$DBR_DIR/$PHP_LIBDIR -lm
-  dnl ])
-  dnl
-  dnl PHP_SUBST(DBR_SHARED_LIBADD)
-
-  dnl In case of no dependencies
   AC_DEFINE(HAVE_DBR, 1, [ Have dbr support ])
 
   PHP_NEW_EXTENSION(dbr, dbr.c, $ext_shared)

@@ -2,12 +2,12 @@
 <html>
 
 <head>
-    <title>Dynamsoft PHP Barcode QR Reader</title>
+    <title>PHP Laravel Barcode QR Reader</title>
     <meta name="_token" content="{{csrf_token()}}" />
 </head>
 
 <body>
-    <H1>Dynamsoft PHP Barcode QR Reader</H1>
+    <H1>PHP Laravel Barcode QR Reader</H1>
     <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
     @csrf
         Select barcode image:
