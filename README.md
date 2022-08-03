@@ -15,7 +15,8 @@ This sample demonstrates how to decode barcode and Qr code on the server side us
         ```
 - [PHP 7.4](https://windows.php.net/download)
     - Windows
-        - [PHP 7.4](https://windows.php.net/downloads/releases/php-7.4.30-nts-Win32-vc15-x64.zip)
+        
+        [php-7.4.30-nts-Win32-vc15-x64.zip](https://windows.php.net/downloads/releases/php-7.4.30-nts-Win32-vc15-x64.zip)
     - Linux
         ```bash
         sudo apt install php7.4
