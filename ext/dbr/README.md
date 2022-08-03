@@ -4,11 +4,11 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 ## Download
 [Dynamsoft C++ Barcode Reader v9.2](https://www.dynamsoft.com/barcode-reader/downloads)
 
-## How to Build the Extension
+## How to Build the Extension on Windows and Linux
 
 **Windows**
 1. Download [php-sdk-binary-tools](https://github.com/php/php-sdk-binary-tools), [PHP source code and development package](https://windows.php.net/download)
-2. Build the extension:
+2. Use `phpize` to build the extension:
 
     ```bash
     phpize
@@ -23,6 +23,35 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 4. Copy the generated `php_dbr.dll` to the `php/ext/` folder, and copy `DynamicPdfx64.dll`, `DynamsoftBarcodeReaderx64.dll`, `DynamsoftLicenseClientx64.dll` and `vcomp110.dll` to the PHP root directory.
 
     ![install PHP barcode Qr code extension in Windows](https://www.dynamsoft.com/codepool/img/2022/08/php-install-barcode-extension.png)
+
+**Linux**
+1. In Ubuntu 20.04, install:
+
+    ```bash
+    sudo apt install php7.4-dev php7.4 libxml2-dev
+    ```
+
+2. Copy `libDynamicPdf.so`, `libDynamsoftBarcodeReader.so`, `libDynamsoftLicenseClient.so` to `/usr/bin`:
+
+    ```bash
+    sudo cp bin/linux/*.so /usr/lib
+    ```
+
+3. Use `phpize` to build the extension:
+
+    ```bash
+    phpize
+    ./configure
+    make
+    ```
+
+4. Install the extension:
+
+    ```bash
+    make install
+    ```
+
+    Then add `extension=dbr` to `/etc/php/7.4/cli/php.ini`.
 
 
 ## Test the Extension
