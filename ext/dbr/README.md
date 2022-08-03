@@ -2,7 +2,17 @@
 The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Barcode SDK](https://www.dynamsoft.com/barcode-reader/sdk-desktop-server/).
 
 ## Download
-[Dynamsoft C++ Barcode Reader v9.2](https://www.dynamsoft.com/barcode-reader/downloads)
+- [Dynamsoft C++ Barcode Reader v9.2](https://www.dynamsoft.com/barcode-reader/downloads)
+- PHP 7.4
+    - Windows
+        - [php-sdk-binary-tools](https://github.com/php/php-sdk-binary-tools)
+        - [PHP 7.4 source code](https://windows.php.net/downloads/releases/php-7.4.30-src.zip)
+        - [PHP 7.4](https://windows.php.net/downloads/releases/php-7.4.30-nts-Win32-vc15-x64.zip)
+        - [Development package (SDK to develop PHP extensions)](https://windows.php.net/downloads/releases/php-devel-pack-7.4.30-nts-Win32-vc15-x64.zip)
+    - Linux
+        ```bash
+        sudo apt install php7.4-dev php7.4 libxml2-dev
+        ```
 
 ## How to Build the Extension on Windows and Linux
 
@@ -41,7 +51,7 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 
     ```bash
     phpize
-    ./configure
+    ./configure --enable-dbr
     make
     ```
 
