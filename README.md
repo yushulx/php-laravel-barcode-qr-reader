@@ -57,3 +57,6 @@ Laravel Framework 8.83.23
 4. Visit `http://127.0.0.1:8000/barcode_qr_reader`.
 
     ![PHP laravel barcode Qr code reader](https://www.dynamsoft.com/codepool/img/2022/08/php-laravel-barcode-qr-reader.gif)
+
+## Blog
+[How to Read Barcode QR Code on the Server Side Using PHP Laravel](https://www.dynamsoft.com/codepool/php-laravel-barcode-qr-code-reader.html)
