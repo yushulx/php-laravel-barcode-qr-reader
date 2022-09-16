@@ -1,6 +1,10 @@
 <?php
 
 $filename = "AllSupportedBarcodeTypes.tif";
+if ($argc > 1) {
+  $filename = $argv[1];
+}
+
 if (file_exists($filename)) {
   echo "Barcode file: $filename \n";
 
@@ -8,6 +12,27 @@ if (file_exists($filename)) {
   DBRInitLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
   // DBRInitLicenseFromServer("Server-Site", "License-Key");
 
+  $t_string = <<<EOT
+    {"ImageParameter":
+      {
+          "Name":"BestCoverage",
+          "DeblurLevel":9,
+          "ExpectedBarcodesCount":512,
+          "ScaleDownThreshold":100000,
+          "LocalizationModes":[
+              {"Mode":"LM_CONNECTED_BLOCKS"},
+              {"Mode":"LM_SCAN_DIRECTLY"},
+              {"Mode":"LM_STATISTICS"},
+              {"Mode":"LM_LINES"},
+              {"Mode":"LM_STATISTICS_MARKS"}
+          ],
+          "GrayscaleTransformationModes":[
+              {"Mode":"GTM_ORIGINAL"},
+              {"Mode":"GTM_INVERTED"}
+          ]
+      }
+  }
+  EOT;
   //Best coverage settings
   DBRInitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}");		
   //Best speend settings
@@ -26,7 +51,10 @@ if (file_exists($filename)) {
    * Returned value:
    * If succeed, it is an array.
    */
+
+  $time = microtime(true);
   $resultArray = DecodeBarcodeFile($filename, 0x3FF | 0x2000000 | 0x4000000 | 0x8000000 | 0x10000000); // 1D, PDF417, QRCODE, DataMatrix, Aztec Code
+  echo "Time: " . (microtime(true) - $time) . "s\n";
 
   if (is_array($resultArray)) {
     $resultCount = count($resultArray);

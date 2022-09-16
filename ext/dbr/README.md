@@ -65,7 +65,7 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 
 
 ## Test the Extension
-1. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr), and substitute the license key in `test/reader.php`.
+1. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr), and substitute the license key in `test.php`.
 
     ```php
     DBRInitLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
@@ -74,11 +74,25 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
 2. Test the extension:
 
     ```bash
-    cd test
-    php reader.php
+    php test.php
     ```
 
     ![PHP barcode QR code reader](https://www.dynamsoft.com/codepool/img/2022/08/php-barcode-qrcode-reader.png)
 
+## Docker
+- Run the `test.php` in Docker:
+
+    ```bash
+    docker build -t dynamsoft-php-barcode-reader .
+    docker run -it --rm  dynamsoft-php-barcode-reader
+    ```
+- Read barcodes from an image located in the local file system:
+
+    ```bash
+    docker run -it --rm -v <image-folder>:/app dynamsoft-php-barcode-reader php /usr/src/myapp/test.php /app/<image-file>
+    ```
+
 ## References
 - [Build your own PHP on Windows](https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2)
+
+
