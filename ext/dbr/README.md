@@ -91,6 +91,13 @@ The project aims to build a PHP Barcode QR code extension with [Dynamsoft C++ Ba
     ```bash
     docker run -it --rm -v <image-folder>:/app dynamsoft-php-barcode-reader php /usr/src/myapp/test.php /app/<image-file>
     ```
+    
+## Docker Hub
+[https://hub.docker.com/repository/docker/yushulx/dynamsoft-php-barcode-reader](https://hub.docker.com/repository/docker/yushulx/dynamsoft-php-barcode-reader)
+
+```bash
+docker run yushulx/dynamsoft-php-barcode-reader
+```
 
 ## References
 - [Build your own PHP on Windows](https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2)
