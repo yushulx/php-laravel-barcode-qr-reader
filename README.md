@@ -1,5 +1,5 @@
-# PHP Laravel Barcode Qr Code Reader
-This sample demonstrates how to decode barcode and Qr code on the server side using the PHP Laravel framework.
+# PHP Laravel Barcode QR Code Reader
+This sample demonstrates how to decode barcodes and QR codes on the server side using the PHP Laravel framework.
 
 ## Installation
 - [Composer](https://getcomposer.org/download/)
@@ -44,7 +44,7 @@ Laravel Framework 8.83.23
 2. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr), and substitute the license key in `app/Http/Controllers/ImageUploadController.php`.
 
     ```php
-    DBRInitLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
+    DBRInitLicense("LICENSE-KEY");
     ```
 
 3. Run the web application:
@@ -54,7 +54,7 @@ Laravel Framework 8.83.23
     composer install
     php artisan serve
     ```
-4. Visit `http://127.0.0.1:8000/barcode_qr_reader`.
+4. Visit `http://127.0.0.1:8000/barcode_qr_reader` in a web browser.
 
     ![PHP laravel barcode Qr code reader](https://www.dynamsoft.com/codepool/img/2022/08/php-laravel-barcode-qr-reader.gif)
 
