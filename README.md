@@ -41,7 +41,7 @@ Laravel Framework 8.83.23
 
 ## Usage
 1. Build and install the [PHP barcode Qr code extension](./ext/dbr).
-2. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr), and substitute the license key in `app/Http/Controllers/ImageUploadController.php`.
+2. Apply for a [30-day FREE trial license](https://www.dynamsoft.com/customer/license/trialLicense/?product=dcv&package=cross-platform), and substitute the license key in `app/Http/Controllers/ImageUploadController.php`.
 
     ```php
     DBRInitLicense("LICENSE-KEY");
