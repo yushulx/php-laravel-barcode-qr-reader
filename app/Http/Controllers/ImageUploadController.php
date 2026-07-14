@@ -7,54 +7,99 @@ use Validator;
 
 class ImageUploadController extends Controller
 {
-    function __construct() {
-        DBRInitLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==");
-        DBRInitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}");		
+    /**
+     * Decode barcodes from an image file by calling the external
+     * Dynamsoft Barcode Reader service.
+     *
+     * @param string $filePath Absolute path to the image file.
+     * @return array|null List of barcode results or null on failure.
+     */
+    private function decodeBarcodeFile($filePath)
+    {
+        $serviceUrl = env('BARCODE_SERVICE_URL', 'http://127.0.0.1:8080');
+        $url = rtrim($serviceUrl, '/') . '/decode?file=' . urlencode($filePath);
+
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 60,
+            ],
+        ]);
+
+        $response = @file_get_contents($url, false, $context);
+        if ($response === false) {
+            return null;
+        }
+
+        $result = json_decode($response, true);
+        if (!is_array($result)) {
+            return null;
+        }
+
+        return $result;
     }
 
     function page()
     {
-     return view('barcode_qr_reader');
+        return view('barcode_qr_reader');
     }
 
     function upload(Request $request)
     {
-     $validation = Validator::make($request->all(), [
-      'BarcodeQrImage' => 'required'
-     ]);
-     if($validation->passes())
-     {
-      $image = $request->file('BarcodeQrImage');
-      $image->move(public_path('images'), $image->getClientOriginalName());
+        $maxSizeKilobytes = env('BARCODE_IMAGE_MAX_SIZE_KB', 20480);
 
-      $resultArray = DecodeBarcodeFile(public_path('images/' . $image->getClientOriginalName()), 0x3FF | 0x2000000 | 0x4000000 | 0x8000000 | 0x10000000); // 1D, PDF417, QRCODE, DataMatrix, Aztec Code
+        $validation = Validator::make($request->all(), [
+            'BarcodeQrImage' => 'required|file|max:' . $maxSizeKilobytes
+        ]);
 
-      if (is_array($resultArray)) {
-        $resultCount = count($resultArray);
-        echo "Total count: $resultCount", "\n";
-        if ($resultCount > 0) {
-            for ($i = 0; $i < $resultCount; $i++) {
-                $result = $resultArray[$i];
-                echo "Barcode format: $result[0], ";
-                echo "value: $result[1], ";
-                echo "raw: ", bin2hex($result[2]), "\n";
-                echo "Localization : ", $result[3], "\n";
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validation->errors()->all()
+            ], 422);
+        }
+
+        $image = $request->file('BarcodeQrImage');
+
+        if (!$image->isValid()) {
+            return response()->json([
+                'success' => false,
+                'message' => ['Upload failed: ' . $image->getErrorMessage()]
+            ], 422);
+        }
+
+        $filename = $image->getClientOriginalName();
+        $destinationPath = public_path('images');
+        if (!is_dir($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+        $image->move($destinationPath, $filename);
+        $filePath = $destinationPath . DIRECTORY_SEPARATOR . $filename;
+
+        $resultArray = $this->decodeBarcodeFile($filePath);
+
+        if ($resultArray === null) {
+            return response()->json([
+                'success' => false,
+                'message' => ['Failed to connect to barcode service. Is it running?']
+            ], 503);
+        }
+
+        $results = [];
+        if (is_array($resultArray)) {
+            foreach ($resultArray as $result) {
+                $results[] = [
+                    'format' => $result[0] ?? '',
+                    'text' => $result[1] ?? '',
+                    'raw' => $result[2] ?? '',
+                    'localization' => $result[3] ?? ''
+                ];
             }
         }
-        else {
-            echo 'No barcode found.', "\n";
-        }
-      } 
 
-      return response()->json([
-       'message'   => 'Successfully uploaded the image.'
-      ]);
-     }
-     else
-     {
-      return response()->json([
-       'message'   => $validation->errors()->all()
-      ]);
-     }
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully decoded the image.',
+            'results' => $results
+        ]);
     }
 }
