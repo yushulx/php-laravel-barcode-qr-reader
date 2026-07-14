@@ -1,5 +1,8 @@
-# PHP Laravel Barcode QR Code Reader
+# PHP Laravel 1D/2D Barcode Reader
 This sample demonstrates how to decode barcodes and QR codes on the server side using the PHP Laravel framework.
+
+https://github.com/user-attachments/assets/7eaf141c-e14a-4954-9516-05e83fed9254
+
 
 ## Architecture
 Instead of compiling a PHP extension (which is tied to a specific PHP version), this project uses a standalone **Dynamsoft Barcode Reader Service** written in Python. PHP communicates with the service via HTTP and receives JSON results. This approach works across PHP versions without recompiling anything.
