@@ -96,4 +96,4 @@ php test_service.php <path/to/image>
 ```
 
 ## Blog
-[How to Read Barcode QR Code on the Server Side Using PHP Laravel](https://www.dynamsoft.com/codepool/php-laravel-barcode-qr-code-reader.html)
+[How to Decode Barcodes and QR Codes in PHP Laravel with Dynamsoft Barcode SDK](https://www.dynamsoft.com/codepool/decode-barcodes-qr-codes-php-laravel.html)
